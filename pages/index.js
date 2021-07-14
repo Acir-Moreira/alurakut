@@ -28,6 +28,7 @@ export default function Home() {
     title: 'Eu odeio acordar cedo',
     image: 'https://alurakut.vercel.app/capa-comunidade-01.jpg'
   }]);
+
   const pessoasFavoritas = ['juunegreiros', 'omariosouto', 'peas', 'rafaballerini', 'marcobrunodev', 'felipefialho']
 
   return (
@@ -71,9 +72,16 @@ export default function Home() {
                 />
               </div>
               <div>
-                <input placeholder="Coloque uma URL para utilizar de capa" 
+                <input placeholder="Coloque uma URL (imagem) para utilizar de capa" 
                 name="image" 
                 aria-label="Coloque uma URL para utilizar de capa?" 
+                />
+              </div>
+
+              <div>
+                <input placeholder="Link para a sua comunidade" 
+                name="text" 
+                aria-label="Link para a sua comunidade?" 
                 />
               </div>
 
@@ -94,7 +102,7 @@ export default function Home() {
 
             <ul>
               {pessoasFavoritas.map((itemAtual) => {
-                return (
+                return  (
                   <li key={itemAtual}>
                     <a href={`/users/${itemAtual}`} >
                       <img src={`https://github.com/${itemAtual}.png`} />

@@ -6,6 +6,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "axios": "^0.21.1",
     "next": "latest",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -15,5 +16,18 @@
   "devDependencies": {
     "babel-plugin-styled-components": "^1.12.0"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "name": "alurakut",
+  "description": "This example features how you use a different styling solution than [styled-jsx](https://github.com/vercel/styled-jsx) that also supports universal styles. That means we can serve the required styles for the first render within the HTML and then load the rest in the client. In this case we are using [styled-components](https://github.com/styled-components/styled-components).",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Acir-Moreira/alurakut.git"
+  },
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/Acir-Moreira/alurakut/issues"
+  },
+  "homepage": "https://github.com/Acir-Moreira/alurakut#readme"
 }
