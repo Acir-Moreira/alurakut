@@ -21,6 +21,28 @@ function ProfileSidebar(propriedades) {
   )
 }
 
+function ProfileRelationsBox(propriedades) {
+  return (
+    <ProfileRelationsBoxWrapper>
+      <h2 className="smallTitle">
+        {propriedades.title} ({propriedades.items.length})
+      </h2>
+      <ul>
+        {/* {seguidores.map((itemAtual) => {
+          return (
+            <li key={itemAtual}>
+              <a href={`https://github.com/${itemAtual}.png`}>
+                <img src={itemAtual.image} />
+                <span>{itemAtual.title}</span>
+              </a>
+            </li>
+          )
+        })} */}
+      </ul>
+    </ProfileRelationsBoxWrapper>
+  )
+}
+
 export default function Home() {
   const githubUser = 'Acir-Moreira';
   const [comunidades, setComunidades] = React.useState([{
@@ -29,8 +51,18 @@ export default function Home() {
     image: 'https://alurakut.vercel.app/capa-comunidade-01.jpg'
   }]);
 
-  const pessoasFavoritas = ['juunegreiros', 'omariosouto', 'peas', 'rafaballerini', 'marcobrunodev', 'felipefialho']
-
+  const pessoasFavoritas = ['juunegreiros', 'omariosouto', 'peas', 'rafaballerini', 'marcobrunodev', 'felipefialho', 'Gabriel-025', 'jessicacosta07', 'drimmorais']
+  const [seguidores, setSeguidores] = React.useState([]);
+  React.useEffect(function() {
+    fetch('https://api.github.com/users/acir-moreira/followers')
+    .then(function (respostaDoServidor) {
+      return respostaDoServidor.json();
+    })
+    .then(function(respostaCompleta) {
+      setSeguidores(respostaCompleta);
+    })
+  }, [])
+  
   return (
     <>
       <AlurakutMenu />
@@ -101,10 +133,10 @@ export default function Home() {
             </h2>
 
             <ul>
-              {pessoasFavoritas.map((itemAtual) => {
+              {pessoasFavoritas.slice(0, 6).map((itemAtual) => {
                 return  (
                   <li key={itemAtual}>
-                    <a href={`/users/${itemAtual}`} >
+                    <a href={`https://github.com/${itemAtual}`} >
                       <img src={`https://github.com/${itemAtual}.png`} />
                       <span>{itemAtual}</span>
                     </a>
@@ -118,12 +150,29 @@ export default function Home() {
               Comunidades ({comunidades.length})
             </h2>         
             <ul>
-              {comunidades.map((itemAtual) => {
+              {comunidades.slice(0, 6).map((itemAtual) => {
                 return (
                   <li key={itemAtual.id}>
                     <a href={`/users/${itemAtual.title}`} key={itemAtual.title}>
                      <img src={itemAtual.image} />
                       <span>{itemAtual.title}</span>
+                    </a>
+                  </li>
+                )
+              })}
+            </ul>
+          </ProfileRelationsBoxWrapper>
+          <ProfileRelationsBoxWrapper>
+            <h2 className="smallTitle">
+              Seguidores ({seguidores.length})
+            </h2>         
+            <ul>
+              {seguidores.slice(0, 6).map((itemAtual) => {
+                return (
+                  <li key={itemAtual.id}>
+                    <a href={`https://github.com/${itemAtual.login}`} >
+                     <img src={itemAtual.avatar_url} />
+                      <span>{itemAtual.login}</span>
                     </a>
                   </li>
                 )
