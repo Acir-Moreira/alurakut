@@ -28,16 +28,7 @@ function ProfileRelationsBox(propriedades) {
         {propriedades.title} ({propriedades.items.length})
       </h2>
       <ul>
-        {/* {seguidores.map((itemAtual) => {
-          return (
-            <li key={itemAtual}>
-              <a href={`https://github.com/${itemAtual}.png`}>
-                <img src={itemAtual.image} />
-                <span>{itemAtual.title}</span>
-              </a>
-            </li>
-          )
-        })} */}
+        {}
       </ul>
     </ProfileRelationsBoxWrapper>
   )
@@ -48,10 +39,22 @@ export default function Home() {
   const [comunidades, setComunidades] = React.useState([{
     id: '12341864651456432',
     title: 'Eu odeio acordar cedo',
-    image: 'https://alurakut.vercel.app/capa-comunidade-01.jpg'
+    image: 'https://alurakut.vercel.app/capa-comunidade-01.jpg',
+    url: 'https://alurakut.vercel.app/capa-comunidade-01.jpg'
   }]);
 
-  const pessoasFavoritas = ['juunegreiros', 'omariosouto', 'peas', 'rafaballerini', 'marcobrunodev', 'felipefialho', 'Gabriel-025', 'jessicacosta07', 'drimmorais']
+  //const pessoasFavoritas = ['juunegreiros', 'omariosouto', 'peas', 'rafaballerini', 'marcobrunodev', 'felipefialho', 'Gabriel-025', 'jessicacosta07', 'drimmorais']
+  const [pessoasFavoritas, setPessoasFavoritas] = React.useState([]);
+  React.useEffect(function() {
+    fetch('https://api.github.com/users/acir-moreira/following')
+    .then(function (respostaDoServidor) {
+      return respostaDoServidor.json();
+    })
+    .then(function(respostaCompleta) {
+      setPessoasFavoritas(respostaCompleta);
+    })
+  }, [])
+
   const [seguidores, setSeguidores] = React.useState([]);
   React.useEffect(function() {
     fetch('https://api.github.com/users/acir-moreira/followers')
@@ -62,7 +65,7 @@ export default function Home() {
       setSeguidores(respostaCompleta);
     })
   }, [])
-  
+
   return (
     <>
       <AlurakutMenu />
@@ -91,6 +94,7 @@ export default function Home() {
                 id: new Date().toISOString,
                 title: dadosDoForm.get('title'),
                 image: dadosDoForm.get('image'),
+                url: dadosDoForm.get('url')
               }
 
               const comunidadesAtualizadas = [...comunidades, comunidade];
@@ -112,7 +116,7 @@ export default function Home() {
 
               <div>
                 <input placeholder="Link para a sua comunidade" 
-                name="text" 
+                name="url" 
                 aria-label="Link para a sua comunidade?" 
                 />
               </div>
@@ -131,14 +135,13 @@ export default function Home() {
             <h2 className="smallTitle">
               Pessoas da comunidade ({pessoasFavoritas.length})
             </h2>
-
             <ul>
               {pessoasFavoritas.slice(0, 6).map((itemAtual) => {
                 return  (
-                  <li key={itemAtual}>
-                    <a href={`https://github.com/${itemAtual}`} >
-                      <img src={`https://github.com/${itemAtual}.png`} />
-                      <span>{itemAtual}</span>
+                  <li key={itemAtual.id}>
+                    <a href={`https://github.com/${itemAtual.login}`} >
+                      <img src={itemAtual.avatar_url} />
+                      <span>{itemAtual.login}</span>
                     </a>
                   </li>
                 )
@@ -153,7 +156,7 @@ export default function Home() {
               {comunidades.slice(0, 6).map((itemAtual) => {
                 return (
                   <li key={itemAtual.id}>
-                    <a href={`/users/${itemAtual.title}`} key={itemAtual.title}>
+                    <a href={itemAtual.url}>
                      <img src={itemAtual.image} />
                       <span>{itemAtual.title}</span>
                     </a>
