@@ -39,7 +39,7 @@ export function AlurakutMenu({ githubUser }) {
             Sair
           </a>
           <div>
-            <input placeholder="Pesquisar no Orkut" />
+            <input placeholder="Pesquisar no Alurakut" />
           </div>
         </nav>
 
@@ -156,7 +156,7 @@ AlurakutMenu.Wrapper = styled.header`
   }
 `;
 AlurakutMenu.Logo = styled.img`
-  background-color: #ffffff;
+  background-color: #f3f2f2;
   padding: 9px 14px;
   border-radius: 1000px;
   height: 34px;
@@ -248,7 +248,7 @@ export function OrkutNostalgicIconSet(props) {
         { name: 'Videos', slug: 'videos', icon: 'video-camera' },
         { name: 'Fãs', slug: 'fas', icon: 'star' },
         { name: 'Mensagens', slug: 'mensagens', icon: 'email' },
-      ].map(({ name, slug, icon }) => (
+      ].slice(0,1).map(({ name, slug, icon }) => (
         <li key={`orkut__icon_set__${slug}`}>
           <span style={{ gridArea: 'title' }} className="OrkutNostalgicIconSet__title">
             {name}
@@ -257,14 +257,124 @@ export function OrkutNostalgicIconSet(props) {
             <img key={`orkut__icon_set__${slug}_img`} className="OrkutNostalgicIconSet__iconSample" src={`https://alurakut.vercel.app/icons/${icon}.svg`} />
             {props[slug] ? props[slug] : 5}
           </span>
-        </li>
+        </li>        
       ))}
+      {[
+        { name: 'Recados', slug: 'recados', icon: 'book' },
+        { name: 'Fotos', slug: 'fotos', icon: 'camera' },
+        { name: 'Videos', slug: 'videos', icon: 'video-camera' },
+        { name: 'Fãs', slug: 'fas', icon: 'star' },
+        { name: 'Mensagens', slug: 'mensagens', icon: 'email' },
+      ].slice(1,2).map(({ name, slug, icon }) => (
+        <li key={`orkut__icon_set__${slug}`}>
+          <span style={{ gridArea: 'title' }} className="OrkutNostalgicIconSet__title">
+            {name}
+          </span>
+          <span className="OrkutNostalgicIconSet__number" style={{ gridArea: 'number' }}>
+            <img key={`orkut__icon_set__${slug}_img`} className="OrkutNostalgicIconSet__iconSample" src={`https://alurakut.vercel.app/icons/${icon}.svg`} />
+            {props[slug] ? props[slug] : 12}
+          </span>
+        </li>        
+      ))}
+      {[
+        { name: 'Recados', slug: 'recados', icon: 'book' },
+        { name: 'Fotos', slug: 'fotos', icon: 'camera' },
+        { name: 'Videos', slug: 'videos', icon: 'video-camera' },
+        { name: 'Fãs', slug: 'fas', icon: 'star' },
+        { name: 'Mensagens', slug: 'mensagens', icon: 'email' },
+      ].slice(2,3).map(({ name, slug, icon }) => (
+        <li key={`orkut__icon_set__${slug}`}>
+          <span style={{ gridArea: 'title' }} className="OrkutNostalgicIconSet__title">
+            {name}
+          </span>
+          <span className="OrkutNostalgicIconSet__number" style={{ gridArea: 'number' }}>
+            <img key={`orkut__icon_set__${slug}_img`} className="OrkutNostalgicIconSet__iconSample" src={`https://alurakut.vercel.app/icons/${icon}.svg`} />
+            {props[slug] ? props[slug] : 8}
+          </span>
+        </li>        
+      ))}
+      {[
+        { name: 'Recados', slug: 'recados', icon: 'book' },
+        { name: 'Fotos', slug: 'fotos', icon: 'camera' },
+        { name: 'Videos', slug: 'videos', icon: 'video-camera' },
+        { name: 'Fãs', slug: 'fas', icon: 'star' },
+        { name: 'Mensagens', slug: 'mensagens', icon: 'email' },
+      ].slice(3,4).map(({ name, slug, icon }) => (
+        <li key={`orkut__icon_set__${slug}`}>
+          <span style={{ gridArea: 'title' }} className="OrkutNostalgicIconSet__title">
+            {name}
+          </span>
+          <span className="OrkutNostalgicIconSet__number" style={{ gridArea: 'number' }}>
+            <img key={`orkut__icon_set__${slug}_img`} className="OrkutNostalgicIconSet__iconSample" src={`https://alurakut.vercel.app/icons/${icon}.svg`} />
+            {props[slug] ? props[slug] : 6}
+          </span>
+        </li>        
+      ))}
+      {[
+        { name: 'Recados', slug: 'recados', icon: 'book' },
+        { name: 'Fotos', slug: 'fotos', icon: 'camera' },
+        { name: 'Videos', slug: 'videos', icon: 'video-camera' },
+        { name: 'Fãs', slug: 'fas', icon: 'star' },
+        { name: 'Mensagens', slug: 'mensagens', icon: 'email' },
+      ].slice(4,5).map(({ name, slug, icon }) => (
+        <li key={`orkut__icon_set__${slug}`}>
+          <span style={{ gridArea: 'title' }} className="OrkutNostalgicIconSet__title">
+            {name}
+          </span>
+          <span className="OrkutNostalgicIconSet__number" style={{ gridArea: 'number' }}>
+            <img key={`orkut__icon_set__${slug}_img`} className="OrkutNostalgicIconSet__iconSample" src={`https://alurakut.vercel.app/icons/${icon}.svg`} />
+            {props[slug] ? props[slug] : 20}
+          </span>
+        </li>        
+      ))}
+      
+
       {[
         { name: 'Confiável', slug: 'confiavel', icon: 'smile' },
         { name: 'Legal', slug: 'legal', icon: 'cool' },
         { name: 'Sexy', slug: 'sexy', icon: 'heart' },
-      ].map(({ name, slug, icon }) => {
+      ].slice(0,1).map(({ name, slug, icon }) => {
         const total = props[slug] ? props[slug] : 3;
+        return (
+          <li key={`orkut__icon_set__${slug}`}>
+            <span className="OrkutNostalgicIconSet__title">
+              {name}
+            </span>
+            <span className="OrkutNostalgicIconSet__iconComplex" className="OrkutNostalgicIconSet__number" style={{ gridArea: 'number' }}>
+              {[0, 1, 2].map((_, index) => {
+                const isHeartActive = index <= (total - 1);
+                return <img key={`orkut__icon_set__${slug}_img_${index}`} src={`https://alurakut.vercel.app/icons/${icon}.svg`} style={{ marginRight: '2px', opacity: isHeartActive ? 1 : '0.5' }} />
+              })}
+            </span>
+          </li>
+        );
+      })}
+      {[
+        { name: 'Confiável', slug: 'confiavel', icon: 'smile' },
+        { name: 'Legal', slug: 'legal', icon: 'cool' },
+        { name: 'Sexy', slug: 'sexy', icon: 'heart' },
+      ].slice(1,2).map(({ name, slug, icon }) => {
+        const total = props[slug] ? props[slug] : 2;
+        return (
+          <li key={`orkut__icon_set__${slug}`}>
+            <span className="OrkutNostalgicIconSet__title">
+              {name}
+            </span>
+            <span className="OrkutNostalgicIconSet__iconComplex" className="OrkutNostalgicIconSet__number" style={{ gridArea: 'number' }}>
+              {[0, 1, 2].map((_, index) => {
+                const isHeartActive = index <= (total - 1);
+                return <img key={`orkut__icon_set__${slug}_img_${index}`} src={`https://alurakut.vercel.app/icons/${icon}.svg`} style={{ marginRight: '2px', opacity: isHeartActive ? 1 : '0.5' }} />
+              })}
+            </span>
+          </li>
+        );
+      })}
+      {[
+        { name: 'Confiável', slug: 'confiavel', icon: 'smile' },
+        { name: 'Legal', slug: 'legal', icon: 'cool' },
+        { name: 'Sexy', slug: 'sexy', icon: 'heart' },
+      ].slice(2,3).map(({ name, slug, icon }) => {
+        const total = props[slug] ? props[slug] : 1;
         return (
           <li key={`orkut__icon_set__${slug}`}>
             <span className="OrkutNostalgicIconSet__title">
