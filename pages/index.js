@@ -28,7 +28,27 @@ function ProfileRelationsBox(propriedades) {
         {propriedades.title} ({propriedades.items.length})
       </h2>
       <ul>
-        {}
+        {propriedades.items.slice(0, 6).map((itemAtual) => {
+          if (propriedades.title == 'Comunidades') {
+            return (
+              <li key={itemAtual.id}>
+                <a href={itemAtual.url}>
+                 <img src={itemAtual.image} />
+                  <span>{itemAtual.title}</span>
+                </a>
+              </li>
+            )
+          } else {
+            return (
+              <li key={itemAtual.id}>
+                <a href={`https://github.com/${itemAtual.login}`} >
+                 <img src={itemAtual.avatar_url} />
+                  <span>{itemAtual.login}</span>
+                </a>
+              </li>
+            )
+                
+              }})}
       </ul>
     </ProfileRelationsBoxWrapper>
   )
@@ -36,6 +56,7 @@ function ProfileRelationsBox(propriedades) {
 
 export default function Home() {
   const githubUser = 'Acir-Moreira';
+
   const [comunidades, setComunidades] = React.useState([{
     id: '12341864651456432',
     title: 'Eu odeio acordar cedo',
@@ -65,6 +86,9 @@ export default function Home() {
       setSeguidores(respostaCompleta);
     })
   }, [])
+
+  const { SiteClient } = require('datocms-client');
+  const client = new SiteClient('c2b1bd2f7c7883189c8467ba35bed1');
 
   return (
     <>
@@ -131,57 +155,11 @@ export default function Home() {
         </div>
 
         <div className="profileRelationsArea" style={{ gridArea: 'profileRelationsArea' }}>
-          <ProfileRelationsBoxWrapper>
-            <h2 className="smallTitle">
-              Pessoas da comunidade ({pessoasFavoritas.length})
-            </h2>
-            <ul>
-              {pessoasFavoritas.slice(0, 6).map((itemAtual) => {
-                return  (
-                  <li key={itemAtual.id}>
-                    <a href={`https://github.com/${itemAtual.login}`} >
-                      <img src={itemAtual.avatar_url} />
-                      <span>{itemAtual.login}</span>
-                    </a>
-                  </li>
-                )
-              })}
-            </ul>
-          </ProfileRelationsBoxWrapper>
-          <ProfileRelationsBoxWrapper>
-            <h2 className="smallTitle">
-              Comunidades ({comunidades.length})
-            </h2>         
-            <ul>
-              {comunidades.slice(0, 6).map((itemAtual) => {
-                return (
-                  <li key={itemAtual.id}>
-                    <a href={itemAtual.url}>
-                     <img src={itemAtual.image} />
-                      <span>{itemAtual.title}</span>
-                    </a>
-                  </li>
-                )
-              })}
-            </ul>
-          </ProfileRelationsBoxWrapper>
-          <ProfileRelationsBoxWrapper>
-            <h2 className="smallTitle">
-              Seguidores ({seguidores.length})
-            </h2>         
-            <ul>
-              {seguidores.slice(0, 6).map((itemAtual) => {
-                return (
-                  <li key={itemAtual.id}>
-                    <a href={`https://github.com/${itemAtual.login}`} >
-                     <img src={itemAtual.avatar_url} />
-                      <span>{itemAtual.login}</span>
-                    </a>
-                  </li>
-                )
-              })}
-            </ul>
-          </ProfileRelationsBoxWrapper>
+          
+          <ProfileRelationsBox title="Pessoas da Comunidade" items={pessoasFavoritas} />
+          <ProfileRelationsBox title="Comunidades" items={comunidades} />
+          <ProfileRelationsBox title="Seguidores" items={seguidores} />
+          
         </div>
       </MainGrid>
     </>
