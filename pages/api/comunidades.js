@@ -20,7 +20,7 @@ export default async function recebedorDeRequests(request, response) {
         })
         return;
     }
-    response.status(404).json({
+        response.status(404).json({
         message: 'Ocorreu um erro, acesse via POST!'
     })
 }

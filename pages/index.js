@@ -107,7 +107,6 @@ export default function Home() {
       .then((response) => response.json())
       .then((respostaCompleta) => {
         const comunidadesVindasDoDato = respostaCompleta.data.allCommunities;
-        console.log(comunidadesVindasDoDato)
         setComunidades(comunidadesVindasDoDato)
       })
   }, [])
@@ -152,7 +151,6 @@ export default function Home() {
               })
               .then(async (response) => {
                 const dados = await response.json();
-                console.log(dados.registroCriado);
                 const comunidade = dados.registroCriado;
                 const comunidadesAtualizadas = [...comunidades, comunidade];
                 setComunidades(comunidadesAtualizadas);
