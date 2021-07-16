@@ -28,7 +28,7 @@ function ProfileRelationsBox(propriedades) {
         {propriedades.title} ({propriedades.items.length})
       </h2>
       <ul>
-        {propriedades.items.slice(0, 6).map((itemAtual) => {
+        {propriedades.items.map((itemAtual) => {
           if (propriedades.title == 'Comunidades') {
             return (
               <li key={itemAtual.id}>
@@ -65,7 +65,7 @@ export default function Home() {
   //const pessoasFavoritas = ['juunegreiros', 'omariosouto', 'peas', 'rafaballerini', 'marcobrunodev', 'felipefialho', 'Gabriel-025', 'jessicacosta07', 'drimmorais']
   const [pessoasFavoritas, setPessoasFavoritas] = React.useState([]);
   React.useEffect(function () {
-    fetch('https://api.github.com/users/acir-moreira/following')
+    fetch('https://api.github.com/users/acir-moreira/following?per_page=100')
       .then(function (respostaDoServidor) {
         return respostaDoServidor.json();
       })
@@ -76,7 +76,7 @@ export default function Home() {
 
   const [seguidores, setSeguidores] = React.useState([]);
   React.useEffect(function () {
-    fetch('https://api.github.com/users/acir-moreira/followers')
+    fetch('https://api.github.com/users/acir-moreira/followers?per_page=100')
       .then(function (respostaDoServidor) {
         return respostaDoServidor.json();
       })
