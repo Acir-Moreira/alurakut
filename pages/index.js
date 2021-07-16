@@ -33,7 +33,7 @@ function ProfileRelationsBox(propriedades) {
             return (
               <li key={itemAtual.id}>
                 <a href={itemAtual.url}>
-                 <img src={itemAtual.image} />
+                  <img src={itemAtual.imageurl} />
                   <span>{itemAtual.title}</span>
                 </a>
               </li>
@@ -42,13 +42,14 @@ function ProfileRelationsBox(propriedades) {
             return (
               <li key={itemAtual.id}>
                 <a href={`https://github.com/${itemAtual.login}`} >
-                 <img src={itemAtual.avatar_url} />
+                  <img src={itemAtual.avatar_url} />
                   <span>{itemAtual.login}</span>
                 </a>
               </li>
             )
-                
-              }})}
+
+          }
+        })}
       </ul>
     </ProfileRelationsBoxWrapper>
   )
@@ -57,42 +58,63 @@ function ProfileRelationsBox(propriedades) {
 export default function Home() {
   const githubUser = 'Acir-Moreira';
 
-  const [comunidades, setComunidades] = React.useState([{
-    id: '12341864651456432',
-    title: 'Eu odeio acordar cedo',
-    image: 'https://alurakut.vercel.app/capa-comunidade-01.jpg',
-    url: 'https://alurakut.vercel.app/capa-comunidade-01.jpg'
-  }]);
+  const [comunidades, setComunidades] = React.useState([
+
+  ]);
 
   //const pessoasFavoritas = ['juunegreiros', 'omariosouto', 'peas', 'rafaballerini', 'marcobrunodev', 'felipefialho', 'Gabriel-025', 'jessicacosta07', 'drimmorais']
   const [pessoasFavoritas, setPessoasFavoritas] = React.useState([]);
-  React.useEffect(function() {
+  React.useEffect(function () {
     fetch('https://api.github.com/users/acir-moreira/following')
-    .then(function (respostaDoServidor) {
-      return respostaDoServidor.json();
-    })
-    .then(function(respostaCompleta) {
-      setPessoasFavoritas(respostaCompleta);
-    })
+      .then(function (respostaDoServidor) {
+        return respostaDoServidor.json();
+      })
+      .then(function (respostaCompleta) {
+        setPessoasFavoritas(respostaCompleta);
+      })
   }, [])
 
   const [seguidores, setSeguidores] = React.useState([]);
-  React.useEffect(function() {
+  React.useEffect(function () {
     fetch('https://api.github.com/users/acir-moreira/followers')
-    .then(function (respostaDoServidor) {
-      return respostaDoServidor.json();
-    })
-    .then(function(respostaCompleta) {
-      setSeguidores(respostaCompleta);
-    })
+      .then(function (respostaDoServidor) {
+        return respostaDoServidor.json();
+      })
+      .then(function (respostaCompleta) {
+        setSeguidores(respostaCompleta);
+      })
   }, [])
 
-  const { SiteClient } = require('datocms-client');
-  const client = new SiteClient('c2b1bd2f7c7883189c8467ba35bed1');
+  React.useEffect(function () {
+    fetch('https://graphql.datocms.com/', {
+      method: 'POST',
+      headers: {
+        'Authorization': '54aa02310069b5667f5bdaf9035e3a',
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: JSON.stringify({
+        "query": `query {
+      allCommunities {
+        id
+        title
+        imageurl
+        url
+        creatorSlug
+      }
+    }`})
+    })
+      .then((response) => response.json())
+      .then((respostaCompleta) => {
+        const comunidadesVindasDoDato = respostaCompleta.data.allCommunities;
+        console.log(comunidadesVindasDoDato)
+        setComunidades(comunidadesVindasDoDato)
+      })
+  }, [])
 
   return (
     <>
-      <AlurakutMenu />
+      <AlurakutMenu githubUser={githubUser} />
       <MainGrid>
 
         <div className="profileArea" style={{ gridArea: 'profileArea' }}>
@@ -112,36 +134,50 @@ export default function Home() {
             <h2 className="subTitle">O que você deseja fazer?</h2>
             <form onSubmit={function handleCriaComunidade(e) {
               e.preventDefault();
-              const dadosDoForm = new FormData(e.target);              
+              const dadosDoForm = new FormData(e.target);
 
               const comunidade = {
-                id: new Date().toISOString,
                 title: dadosDoForm.get('title'),
-                image: dadosDoForm.get('image'),
-                url: dadosDoForm.get('url')
+                imageurl: dadosDoForm.get('image'),
+                url: dadosDoForm.get('url'),
+                creatorSlug: githubUser
               }
 
-              const comunidadesAtualizadas = [...comunidades, comunidade];
-              setComunidades(comunidadesAtualizadas);
+              fetch('/api/comunidades', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(comunidade)
+              })
+              .then(async (response) => {
+                const dados = await response.json();
+                console.log(dados.registroCriado);
+                const comunidade = dados.registroCriado;
+                const comunidadesAtualizadas = [...comunidades, comunidade];
+                setComunidades(comunidadesAtualizadas);
+              })
+
+              
             }}>
               <div>
-                <input placeholder="Qual vai ser o nome da sua comunidade?" 
-                name="title" 
-                aria-label="Qual vai ser o nome da sua comunidade?" 
-                type="text"
+                <input placeholder="Qual vai ser o nome da sua comunidade?"
+                  name="title"
+                  aria-label="Qual vai ser o nome da sua comunidade?"
+                  type="text"
                 />
               </div>
               <div>
-                <input placeholder="Coloque uma URL (imagem) para utilizar de capa" 
-                name="image" 
-                aria-label="Coloque uma URL para utilizar de capa?" 
+                <input placeholder="Coloque uma URL (imagem) para utilizar de capa"
+                  name="image"
+                  aria-label="Coloque uma URL para utilizar de capa?"
                 />
               </div>
 
               <div>
-                <input placeholder="Link para a sua comunidade" 
-                name="url" 
-                aria-label="Link para a sua comunidade?" 
+                <input placeholder="Link para a sua comunidade"
+                  name="url"
+                  aria-label="Link para a sua comunidade?"
                 />
               </div>
 
@@ -155,11 +191,11 @@ export default function Home() {
         </div>
 
         <div className="profileRelationsArea" style={{ gridArea: 'profileRelationsArea' }}>
-          
+
           <ProfileRelationsBox title="Pessoas da Comunidade" items={pessoasFavoritas} />
           <ProfileRelationsBox title="Comunidades" items={comunidades} />
           <ProfileRelationsBox title="Seguidores" items={seguidores} />
-          
+
         </div>
       </MainGrid>
     </>
