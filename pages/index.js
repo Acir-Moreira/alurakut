@@ -159,23 +159,25 @@ export default function Home() {
               
             }}>
               <div>
-                <input placeholder="Qual vai ser o nome da sua comunidade?"
+                <input required placeholder="Qual vai ser o nome da sua comunidade?"
                   name="title"
                   aria-label="Qual vai ser o nome da sua comunidade?"
                   type="text"
                 />
               </div>
               <div>
-                <input placeholder="Coloque uma URL (imagem) para utilizar de capa"
+                <input required placeholder="Coloque uma URL (imagem) para utilizar de capa"
                   name="image"
                   aria-label="Coloque uma URL para utilizar de capa?"
+                  type="url"
                 />
               </div>
 
               <div>
-                <input placeholder="Link para a sua comunidade"
+                <input required placeholder="Link para a sua comunidade"
                   name="url"
                   aria-label="Link para a sua comunidade?"
+                  type="url"
                 />
               </div>
 
